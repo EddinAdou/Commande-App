@@ -3,6 +3,21 @@ $client = true;
 include_once("header.php");
 include_once("main.php");
 $count = 0;
+$list = [];
+$query = "SELECT idclient 
+FROM client 
+WHERE idclient IN (
+    SELECT idclient 
+    FROM commande 
+    WHERE commande.idclient = client.idclient
+)";
+$pdostmt = $pdo->prepare($query);
+$pdostmt->execute();
+foreach ($pdostmt->fetchAll(PDO::FETCH_NUM) as $tabvalue) {
+    foreach ($tabvalue as $tabelements) {
+       $list[] = $tabelements;
+    }
+}
 ?>
 <main class="flex-shrink-0">
     <div class="container">
@@ -52,7 +67,7 @@ $count = 0;
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                             </svg>
                         </a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $count?>">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"<?php if (in_array($ligne["idclient"],$list)){echo "disabled";} ?> data-bs-target="#deleteModal<?php echo $count?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                 <path
