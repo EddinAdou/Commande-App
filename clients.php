@@ -43,7 +43,7 @@ $count = 0;
                     <td><?php echo isset($ligne["telephone"]) ? $ligne["telephone"] : ''; ?></td>
                     <td><?php echo isset($ligne["ville"]) ? $ligne["ville"] : ''; ?></td>
                     <td>
-                        <a href="" class="btn btn-success">
+                        <a href="updated.php?id=<?php echo $ligne["idclient"] ?>" class="btn btn-success">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path
