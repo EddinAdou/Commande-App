@@ -1,6 +1,6 @@
 <?php
     $client=true;
-    include_once("header.php");
+    
     include_once("main.php");
 
     if (!empty($_POST["inputnom"]) && !empty($_POST["inputville"]) && !empty($_POST["inputtel"])) {
@@ -11,7 +11,9 @@
             "ville" => $_POST["inputville"],
             "tel" => $_POST["inputtel"]
         ])) {
-            echo "<div class='alert alert-success'>Client ajouté avec succès</div>";
+            $lastInsertId = $pdo->lastInsertId();
+            header("Location: clients.php?id=" . $lastInsertId);
+            exit();
         } else {
             echo "<div class='alert alert-danger'>Erreur lors de l'ajout du client</div>";
         }
@@ -20,6 +22,7 @@
     
     
 ?>
+<?php include_once("header.php"); ?>
 <main class="flex-shrink-0">
     <div class="container">
         <h1 class="mt-5">Ajouter un client</h1>
