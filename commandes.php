@@ -94,7 +94,7 @@ $pdostmt->execute();
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Voulez-vous vraiment supprimer cette commande ?
+                                    Voulez-vous vraiment supprimer cette commande?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
