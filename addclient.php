@@ -1,11 +1,14 @@
 <?php
+    $commande=true;
     $client=true;
     
     include_once("main.php");
 
     if (!empty($_POST["inputnom"]) && !empty($_POST["inputville"]) && !empty($_POST["inputtel"])) {
         $query = "INSERT INTO client (nom, ville, telephone) VALUES (:nom, :ville, :tel)";
-        $pdostmt = $pdo->prepare($query);
+        if (isset($pdo)) {
+            $pdostmt = $pdo->prepare($query);
+        }
         if ($pdostmt->execute([
             "nom" => $_POST["inputnom"],
             "ville" => $_POST["inputville"],

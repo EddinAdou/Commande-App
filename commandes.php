@@ -15,7 +15,9 @@ WHERE idcommande IN (
     FROM ligne_commande 
     WHERE commande.idcommande = ligne_commande.idcommande
 )";
-$pdostmt = $pdo->prepare($query);
+if (isset($pdo)) {
+    $pdostmt = $pdo->prepare($query);
+}
 $pdostmt->execute();
 foreach ($pdostmt->fetchAll(PDO::FETCH_NUM) as $tabvalue) {
     foreach ($tabvalue as $tabelements) {
