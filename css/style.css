@@ -1,3 +1,10 @@
 main > .container{
     padding: 60px 15px 0;
 }
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+main > .images-container > div {
+    margin-right: 10px; /* Espace entre les images */
+}

@@ -1,30 +1,30 @@
 <?php
-    $commande=true;
-    $client=true;
-    
-    include_once("main.php");
+$commande=true;
+$client=true;
 
-    if (!empty($_POST["inputnom"]) && !empty($_POST["inputville"]) && !empty($_POST["inputtel"])) {
-        $query = "INSERT INTO client (nom, ville, telephone) VALUES (:nom, :ville, :tel)";
-        if (isset($pdo)) {
-            $pdostmt = $pdo->prepare($query);
-        }
-        if ($pdostmt->execute([
-            "nom" => $_POST["inputnom"],
-            "ville" => $_POST["inputville"],
-            "tel" => $_POST["inputtel"]
-        ])) {
-            $lastInsertId = $pdo->lastInsertId();
-            header("Location: clients.php?id=" . $lastInsertId);
-            exit();
-        } else {
-            echo "<div class='alert alert-danger'>Erreur lors de l'ajout du client</div>";
-        }
-        $pdostmt->closeCursor();
-    }
-    
-    
+include_once("main.php");
+
+
+
 ?>
+<script>
+    $(document).ready(function () {
+        $("#inputdepart").on("change", function () {
+            var departement_code = $(this).val();
+            $.ajax({
+                url: "getVilles.php",
+                type: "POST",
+                data: {
+                    departement_code: departement_code
+                },
+                success: function (data) {
+                    $("#inputville").html(data);
+                }
+            });
+        });
+    });
+</script>
+
 <?php include_once("header.php"); ?>
 <main class="flex-shrink-0">
     <div class="container">
@@ -36,12 +36,27 @@
                 <input type="text" class="form-control" id="inputnom" name="inputnom" required>
             </div>
             <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">ville</label>
-                <input type="text" class="form-control" id="inputville" name="inputville" required>
-            </div>
-            <div class="col-12">
-                <label for="inputAddress" class="form-label">telephone</label>
+                <label for="inputtel" class="form-label">telephone</label>
                 <input type="text" class="form-control" id="inputtel" name="inputtel" required>
+            </div>
+            <div class="col-md-6">
+                <label for="inputdepart" class="form-label">Departement</label>
+                <select type="text" class="form-control" id="inputdepart" name="inputdepart" required>
+                    <option value="">Selectionner un departement(1)</option>
+
+                    <?php  while ($row = $pdostmt2->fetch(PDO::FETCH_ASSOC)):
+                ?>
+                    <option value="<?php echo $row["departement_code"]; ?>"><?php echo $row["departement_nom"]; ?>
+                    </option>
+
+                <?php endwhile; ?>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="inputville" class="form-label">ville</label>
+                <select type="text" class="form-control" id="inputville" name="inputville" required>
+                <option value="">Selectionner une ville (2)</option>
+                </select>
             </div>
             
             <div class="col-12">
