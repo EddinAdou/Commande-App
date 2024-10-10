@@ -1,9 +1,12 @@
 <?php
 
 include_once("main.php");
-
+$connexion = new Connexion();
+$pdo = $connexion->getPDO();
 $query = "SELECT * FROM article WHERE idarticle = :id";
-$pdostmt = $pdo->prepare($query);
+if (isset($pdo)) {
+    $pdostmt = $pdo->prepare($query);
+}
 $pdostmt->execute(["id" => $_GET["id"]]);
 $row = $pdostmt->fetch(PDO::FETCH_ASSOC);
 $pdostmt->closeCursor();

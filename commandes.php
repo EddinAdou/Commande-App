@@ -7,6 +7,8 @@ include_once("main.php");
 $count = 0;
 $list = [];
 
+$connexion = new Connexion();
+$pdo = $connexion->getPDO();
 // Requête pour récupérer les commandes qui sont associées à des lignes de commande
 $query = "SELECT idcommande 
 FROM commande 

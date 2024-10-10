@@ -1,6 +1,7 @@
 <?php
     $client=true;
-    
+$connexion = new Connexion();
+$pdo = $connexion->getPDO();
     include_once("main.php");
 
     if (!empty($_POST["inputnom"]) && !empty($_POST["inputville"]) && !empty($_POST["inputtel"])) {

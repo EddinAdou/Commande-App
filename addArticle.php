@@ -1,4 +1,6 @@
 <?php
+$connexion = new Connexion();
+$pdo = $connexion->getPDO();
     $article=true;
     
     include_once("main.php");

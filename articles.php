@@ -1,9 +1,13 @@
 <?php
+global $pdo;
 $article = true;
 include_once("header.php");
 include_once("main.php");
 $count = 0;
 $list = [];
+
+$connexion = new Connexion();
+$pdo = $connexion->getPDO();
 $query = "SELECT idarticle 
 FROM article 
 WHERE idarticle IN (

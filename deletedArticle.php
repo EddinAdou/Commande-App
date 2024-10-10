@@ -1,6 +1,8 @@
 <?php
 include_once("main.php");
 
+$connexion = new Connexion();
+$pdo = $connexion->getPDO();
 // Activer les erreurs PDO pour le débogage
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

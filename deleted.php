@@ -2,6 +2,8 @@
 include_once("connexion.php");
 include_once("main.php");
 
+$connexion = new Connexion();
+$pdo = $connexion->getPDO();
 if (!empty($_GET["id"])) {
     $idclient = $_GET["id"];
 

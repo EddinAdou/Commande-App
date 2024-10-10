@@ -1,20 +1,24 @@
 <?php
+class Connexion {
+    private $pdo;
+    private $dsn;
+    private $username;
+    private $password;
 
-    class Connexion extends PDO {
-        const Host = 'localhost';
-        const Dbname = 'db';
-        const User = 'root';
-        const Password = '';
-        public function __construct() {
-            try {
-                parent::__construct('mysql:host=127.0.0.1:3307' . self::Host . ';dbname=' . self::Dbname, self::User, self::Password);
-                echo 'Connexion reussie';
-            } catch (PDOException $e) {
-                echo 'Erreur : ' . $e->getMessage();
-            }
+    public function __construct($dsn, $username, $password) {
+        $this->dsn = $dsn;
+        $this->username = $username;
+        $this->password = $password;
+        try {
+            $this->pdo = new PDO($dsn, $username, $password);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Connection failed: " . $e->getMessage());
         }
     }
 
-
-
+    public function prepare($query) {
+        return $this->pdo->prepare($query);
+    }
+}
 ?>

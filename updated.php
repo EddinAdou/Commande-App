@@ -1,7 +1,7 @@
 <?php
 $client = true;
 include_once("main.php");
-
+$pdo = (new Connexion())->getPDO();
 if (!empty($_GET["id"])) {
     $query = "SELECT * FROM client WHERE idclient = :id";
     $pdostmt = $pdo->prepare($query);
@@ -31,32 +31,32 @@ if (!empty($_GET["id"])) {
     }
 
     if ($row) :
-?>
-<?php include_once("header.php"); ?>
-<main class="flex-shrink-0">
-    <div class="container">
-        <h1 class="mt-5">Modifier un client</h1>
+        include_once("header.php");
+        ?>
+        <main class="flex-shrink-0">
+            <div class="container">
+                <h1 class="mt-5">Modifier un client</h1>
 
-        <form class="row g-3" method="POST">
-            <div class="col-md-6">
-                <label for="inputnom" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="inputnom" name="inputnom" value="<?php echo htmlspecialchars($row['nom']); ?>" required>
+                <form class="row g-3" method="POST">
+                    <div class="col-md-6">
+                        <label for="inputnom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="inputnom" name="inputnom" value="<?php echo htmlspecialchars($row['nom']); ?>" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputville" class="form-label">Ville</label>
+                        <input type="text" class="form-control" id="inputville" name="inputville" value="<?php echo htmlspecialchars($row['ville']); ?>" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="inputtel" class="form-label">Téléphone</label>
+                        <input type="text" class="form-control" id="inputtel" name="inputtel" value="<?php echo htmlspecialchars($row['telephone']); ?>" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </div>
+                </form>
             </div>
-            <div class="col-md-6">
-                <label for="inputville" class="form-label">Ville</label>
-                <input type="text" class="form-control" id="inputville" name="inputville" value="<?php echo htmlspecialchars($row['ville']); ?>" required>
-            </div>
-            <div class="col-12">
-                <label for="inputtel" class="form-label">Téléphone</label>
-                <input type="text" class="form-control" id="inputtel" name="inputtel" value="<?php echo htmlspecialchars($row['telephone']); ?>" required>
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Modifier</button>
-            </div>
-        </form>
-    </div>
-</main>
-<?php
+        </main>
+    <?php
     endif;
 }
 ?>
